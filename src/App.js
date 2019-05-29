@@ -51,15 +51,15 @@ function App() {
           <span>Rating</span>
         </StyledListHeader>
         {isLoading ? (
-          <StyledDiv>Loading ratings...</StyledDiv>
+          <StyledLoader>Loading ratings...</StyledLoader>
         ) : (
           ratings &&
           ratings.map(rating => {
             return (
               <StyledList key={uuid()} href={rating.url}>
-                <span>{ratings.indexOf(rating) + 1}.</span>
+                <EdgeSpan>{ratings.indexOf(rating) + 1}.</EdgeSpan>
                 <span>{rating.url}</span>
-                <span>{round(rating.avgRating, 2)}</span>
+                <EdgeSpan>{round(rating.avgRating, 2)}</EdgeSpan>
               </StyledList>
             );
           })
@@ -81,6 +81,13 @@ const StyledDiv = styled.div`
   border: 1px solid #717171;
   border-radius: 5px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+`;
+
+const StyledLoader = styled(StyledDiv)`
+  max-width: 1024px;
+  margin: 1rem;
+  border: none;
+  box-shadow: none;
 `;
 
 const StyledHeader = styled.h2`
@@ -136,4 +143,8 @@ const StyledList = styled.a`
     border-color: #4a90e2;
     color: #000;
   }
+`;
+
+const EdgeSpan = styled.span`
+  margin: 0 1rem;
 `;
