@@ -23,12 +23,8 @@ function App() {
       headers: {
         'Content-Type': 'application/json',
         'Access-Control-Request-Method': ['GET'],
-        'Access-Control-Allow-Headers': [
-          'Content-Type',
-          'Origin',
-          'User-Agent',
-        ],
-      },
+        'Access-Control-Allow-Headers': ['Content-Type', 'Origin', 'User-Agent']
+      }
     })
       .then(res => {
         return res.json();
@@ -88,12 +84,15 @@ const StyledHeader = styled.h2`
   text-align: center;
   margin: 1rem;
   color: #4a90e2;
+  padding: 1rem;
 `;
 
 const StyledContainer = styled.div`
   font-family: 'Montserrat', Arial, sans-serif;
   background: white;
   color: #717171;
+  max-width: 1024px;
+  margin: 0 auto;
 `;
 
 const StyledList = styled.li`
@@ -104,7 +103,7 @@ const StyledList = styled.li`
   margin: 1rem;
 
   border: 1px solid #717171;
-  border-radius: 5px;
+  border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   cursor: pointer;
 
