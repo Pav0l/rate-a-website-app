@@ -38,7 +38,7 @@ function App() {
   }, []);
 
   if (isError) {
-    return <StyledDiv>There was an error :(</StyledDiv>;
+    return <StyledDiv>There was an error. Please try again later :(</StyledDiv>;
   }
 
   return (
@@ -51,7 +51,7 @@ function App() {
           rating &&
           rating.map(rating => {
             return (
-              <StyledList key={uuid()}>
+              <StyledList key={uuid()} href={rating.url}>
                 <span>{rating.url}</span>
                 <span>{round(rating.avgRating, 2)}</span>
               </StyledList>
@@ -95,9 +95,11 @@ const StyledContainer = styled.div`
   margin: 0 auto;
 `;
 
-const StyledList = styled.li`
+const StyledList = styled.a`
   display: flex;
   justify-content: space-between;
+  text-decoration: none;
+  color: #717171;
 
   padding: 1rem;
   margin: 1rem;
@@ -111,5 +113,6 @@ const StyledList = styled.li`
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     background-color: #ecf5ff;
     border-color: #4a90e2;
+    color: #000;
   }
 `;
