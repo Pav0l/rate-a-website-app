@@ -10,7 +10,7 @@ function round(value, decimals) {
 }
 
 function App() {
-  const [rating, setRating] = useState([]);
+  const [ratings, setRatings] = useState([]);
   const [isLoading, setLoading] = useState(false);
   const [isError, setError] = useState(false);
 
@@ -29,7 +29,7 @@ function App() {
       .then(res => {
         return res.json();
       })
-      .then(res => setRating(res))
+      .then(res => setRatings(res))
       .catch(err => {
         setError(true);
         console.error(err);
@@ -45,13 +45,19 @@ function App() {
     <StyledContainer>
       <StyledHeader>World's happiests websites:</StyledHeader>
       <ul>
+        <StyledListHeader>
+          <span>Rank</span>
+          <span>Website</span>
+          <span>Rating</span>
+        </StyledListHeader>
         {isLoading ? (
           <StyledDiv>Loading ratings...</StyledDiv>
         ) : (
-          rating &&
-          rating.map(rating => {
+          ratings &&
+          ratings.map(rating => {
             return (
               <StyledList key={uuid()} href={rating.url}>
+                <span>{ratings.indexOf(rating) + 1}.</span>
                 <span>{rating.url}</span>
                 <span>{round(rating.avgRating, 2)}</span>
               </StyledList>
@@ -95,6 +101,21 @@ const StyledContainer = styled.div`
   margin: 0 auto;
 `;
 
+const StyledListHeader = styled.li`
+  display: flex;
+  justify-content: space-between;
+  background-color: #4a90e2;
+  color: white;
+  font-weight: 600;
+
+  padding: 1rem;
+  margin: 0 1rem;
+
+  border: 1px solid #717171;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+`;
+
 const StyledList = styled.a`
   display: flex;
   justify-content: space-between;
@@ -102,7 +123,7 @@ const StyledList = styled.a`
   color: #717171;
 
   padding: 1rem;
-  margin: 1rem;
+  margin: 0.5rem 1rem;
 
   border: 1px solid #717171;
   border-radius: 8px;
