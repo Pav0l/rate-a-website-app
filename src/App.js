@@ -43,7 +43,7 @@ function App() {
 
   return (
     <StyledContainer>
-      <StyledHeader>World's happiests websites:</StyledHeader>
+      <StyledHeader>World's happiest websites:</StyledHeader>
       <ul>
         <StyledListHeader>
           <span>Rank</span>
