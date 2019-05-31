@@ -6,7 +6,21 @@ const DOMAIN =
   'https://survey-toolbar-ext-backend.herokuapp.com/api/rating/average';
 
 function round(value, decimals) {
-  return Number(Math.round(value + 'e' + decimals) + 'e-' + decimals);
+  return parseFloat(Math.round(value * 100) / 100).toFixed(decimals);
+}
+
+function removeProtocol(str) {
+  // define strings you want to remove
+  const strToRemove = ['http://', 'https://', 'www.'];
+  // loop through the array and replace any strings
+  // which are includes in `str`
+  let replStr = str;
+  for (let i = 0; i < strToRemove.length; i++) {
+    if (replStr.includes(strToRemove[i])) {
+      replStr = replStr.replace(strToRemove[i], '');
+    }
+  }
+  return replStr;
 }
 
 function App() {
@@ -38,56 +52,62 @@ function App() {
   }, []);
 
   if (isError) {
-    return <StyledDiv>There was an error. Please try again later :(</StyledDiv>;
+    return (
+      <StyledMessage>
+        There was an error. Please try again later :(
+      </StyledMessage>
+    );
   }
 
   return (
     <StyledContainer>
       <StyledHeader>World's happiest websites:</StyledHeader>
-      <ul>
+      <LinkDiv>
+        Get the extension:
+        <a href="https://addons.mozilla.org/en-US/firefox/addon/rate-a-website/">
+          Firefox
+        </a>
+        {/* <span> & </span>
+        <a href="#">Chrome</a> */}
+      </LinkDiv>
+      <UnorderedList>
         <StyledListHeader>
-          <span>Rank</span>
-          <span>Website</span>
-          <span>Rating</span>
+          <RankSpan className="title">Rank</RankSpan>
+          <UrlSpan>Website</UrlSpan>
+          <RatingSpan>Count</RatingSpan>
+          <RatingSpan>Rating</RatingSpan>
         </StyledListHeader>
         {isLoading ? (
-          <StyledLoader>Loading ratings...</StyledLoader>
+          <StyledMessage>Loading ratings...</StyledMessage>
         ) : (
           ratings &&
           ratings.map(rating => {
+            let url = removeProtocol(rating.url);
             return (
-              <StyledList key={uuid()} href={rating.url}>
-                <EdgeSpan>{ratings.indexOf(rating) + 1}.</EdgeSpan>
-                <span>{rating.url}</span>
-                <EdgeSpan>{round(rating.avgRating, 2)}</EdgeSpan>
+              <StyledList key={uuid()} onClick={() => window.open(rating.url)}>
+                <RankSpan>{ratings.indexOf(rating) + 1}.</RankSpan>
+                <UrlSpan>{url}</UrlSpan>
+                <RatingSpan>{rating.count}</RatingSpan>
+                <RatingSpan>{round(rating.avgRating, 2)}</RatingSpan>
               </StyledList>
             );
           })
         )}
-      </ul>
+      </UnorderedList>
     </StyledContainer>
   );
 }
 
 export default App;
 
-const StyledDiv = styled.div`
+/* #### STYLED COMPONENTS #### */
+
+const StyledContainer = styled.div`
   font-family: 'Montserrat', Arial, sans-serif;
   background: white;
   color: #717171;
-  text-align: center;
-  padding: 1rem;
-
-  border: 1px solid #717171;
-  border-radius: 5px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-`;
-
-const StyledLoader = styled(StyledDiv)`
-  max-width: 1024px;
-  margin: 1rem;
-  border: none;
-  box-shadow: none;
+  max-width: 850px;
+  margin: 0 auto;
 `;
 
 const StyledHeader = styled.h2`
@@ -100,51 +120,87 @@ const StyledHeader = styled.h2`
   padding: 1rem;
 `;
 
-const StyledContainer = styled.div`
-  font-family: 'Montserrat', Arial, sans-serif;
-  background: white;
-  color: #717171;
-  max-width: 1024px;
-  margin: 0 auto;
+const LinkDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  padding-bottom: 1rem;
+  font-size: 0.9rem;
+  a {
+    margin: 0 1rem;
+  }
+`;
+
+const UnorderedList = styled.ul`
+  @media (max-width: 400px) {
+    font-size: calc(12px + 1vw);
+  }
 `;
 
 const StyledListHeader = styled.li`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
   background-color: #4a90e2;
   color: white;
   font-weight: 600;
+  line-height: normal;
 
   padding: 1rem;
   margin: 0 1rem;
 
   border: 1px solid #717171;
-  border-radius: 8px;
+  border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  .title {
+    color: white;
+  }
 `;
 
-const StyledList = styled.a`
-  display: flex;
-  justify-content: space-between;
-  text-decoration: none;
+const StyledList = styled(StyledListHeader)`
+  background-color: white;
   color: #717171;
-
-  padding: 1rem;
   margin: 0.5rem 1rem;
-
-  border: 1px solid #717171;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   cursor: pointer;
-
+  font-weight: 400;
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
     background-color: #ecf5ff;
     border-color: #4a90e2;
-    color: #000;
   }
 `;
 
-const EdgeSpan = styled.span`
-  margin: 0 1rem;
+const RankSpan = styled.span`
+  color: #4a90e2;
+  font-weight: 600;
+  width: 5%;
+  min-width: 40px;
+  text-align: center;
+`;
+
+const RatingSpan = styled.span`
+  margin: 0 0.5rem 0 1rem;
+  width: 10%;
+  min-width: 40px;
+  text-align: center;
+`;
+
+const UrlSpan = styled.span`
+  width: 75%;
+  text-align: left;
+  margin: 0 auto 0 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+const StyledMessage = styled.div`
+  font-family: 'Montserrat', Arial, sans-serif;
+  background: white;
+  color: #717171;
+  text-align: center;
+  padding: 1rem;
+
+  max-width: 1024px;
+  margin: 1rem auto;
+  border: none;
+  box-shadow: none;
 `;
