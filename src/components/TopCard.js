@@ -15,7 +15,7 @@ function TopCard({ rating, site }) {
   }
 
   return (
-    <CardContainer rating={rating}>
+    <CardContainer rating={rating} onClick={() => window.open(site.url)}>
       <BadgeWrap rating={rating}>
         <Badge src={badge} alt="badge" />
       </BadgeWrap>
@@ -51,6 +51,7 @@ const CardContainer = styled.div`
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
   width: ${props => (props.rating === 1 ? '23%' : '20%')};
   overflow-wrap: break-word;
+  cursor: pointer;
 
   &:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
