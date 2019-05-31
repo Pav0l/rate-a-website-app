@@ -20,7 +20,9 @@ function TopCard({ rating, site }) {
         <Badge src={badge} alt="badge" />
       </BadgeWrap>
 
-      <Logo site={site} />
+      <LogoWrap>
+        <Logo site={site} />
+      </LogoWrap>
 
       <div>
         <h4>{removeProtocol(site.url)}</h4>
@@ -90,4 +92,8 @@ const Badge = styled.img`
   top: -8px;
 
   border: 1px outset #717171;
+`;
+
+const LogoWrap = styled.div`
+  min-height: 100px;
 `;
