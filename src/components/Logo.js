@@ -41,8 +41,4 @@ const StyledLogo = styled.img`
   border-color: white;
   margin: 1rem 0;
   padding: 2px;
-
-  @media (max-width: 600px) {
-    margin: 0;
-  }
 `;
