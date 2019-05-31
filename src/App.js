@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import uuid from 'uuid';
+import TopCard from './components/TopCard';
 
 const DOMAIN =
   'https://survey-toolbar-ext-backend.herokuapp.com/api/rating/average';
@@ -9,7 +10,7 @@ function round(value, decimals) {
   return parseFloat(Math.round(value * 100) / 100).toFixed(decimals);
 }
 
-function removeProtocol(str) {
+export function removeProtocol(str) {
   // define strings you want to remove
   const strToRemove = ['http://', 'https://', 'www.'];
   // loop through the array and replace any strings
@@ -62,13 +63,28 @@ function App() {
   return (
     <StyledContainer>
       <StyledHeader>World's happiest websites:</StyledHeader>
+      <CardWrap>
+        <TopCard site={ratings[1]} rating={2} />
+        <TopCard site={ratings[0]} rating={1} />
+        <TopCard site={ratings[2]} rating={3} />
+      </CardWrap>
       <LinkDiv>
-        Get the extension:
-        <a href="https://addons.mozilla.org/en-US/firefox/addon/rate-a-website/">
+        Get the extension to vote:
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://addons.mozilla.org/en-US/firefox/addon/rate-a-website/"
+        >
           Firefox
         </a>
-        {/* <span> & </span>
-        <a href="#">Chrome</a> */}
+        <span> & </span>
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="https://chrome.google.com/webstore/detail/rate-a-website/oplipkhodadjellpakfommojjmcikidf"
+        >
+          Chrome
+        </a>
       </LinkDiv>
       <UnorderedList>
         <StyledListHeader>
@@ -94,6 +110,15 @@ function App() {
           })
         )}
       </UnorderedList>
+      <IconsLink>
+        Icons made by
+        <a href="https://www.freepik.com/" title="Freepik">
+          Freepik
+        </a>
+        <a href="https://clearbit.com/" title="clearbit">
+          Logos provided by Clearbit
+        </a>
+      </IconsLink>
     </StyledContainer>
   );
 }
@@ -120,6 +145,18 @@ const StyledHeader = styled.h2`
   padding: 1rem;
 `;
 
+const CardWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+
+  @media (max-width: 600px) {
+    flex-direction: column;
+    align-items: center;
+  }
+`;
+
 const LinkDiv = styled.div`
   display: flex;
   justify-content: center;
@@ -131,7 +168,7 @@ const LinkDiv = styled.div`
 `;
 
 const UnorderedList = styled.ul`
-  @media (max-width: 400px) {
+  @media (max-width: 600px) {
     font-size: calc(12px + 1vw);
   }
 `;
@@ -192,7 +229,7 @@ const UrlSpan = styled.span`
   text-overflow: ellipsis;
 `;
 
-const StyledMessage = styled.div`
+export const StyledMessage = styled.div`
   font-family: 'Montserrat', Arial, sans-serif;
   background: white;
   color: #717171;
@@ -203,4 +240,8 @@ const StyledMessage = styled.div`
   margin: 1rem auto;
   border: none;
   box-shadow: none;
+`;
+
+const IconsLink = styled(LinkDiv)`
+  font-size: 12px;
 `;
