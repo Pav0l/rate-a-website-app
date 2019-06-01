@@ -69,7 +69,7 @@ function App() {
         <TopCard site={ratings[2]} rating={3} />
       </CardWrap>
       <LinkDiv>
-        Get the extension to vote:
+        <span>Get the extension to vote:</span>
         <a
           target="_blank"
           rel="noopener noreferrer"
@@ -111,7 +111,7 @@ function App() {
         )}
       </UnorderedList>
       <IconsLink>
-        Icons made by
+        <span>Icons made by</span>
         <a href="https://www.freepik.com/" title="Freepik">
           Freepik
         </a>
@@ -160,6 +160,7 @@ const CardWrap = styled.div`
 const LinkDiv = styled.div`
   display: flex;
   justify-content: center;
+  flex-wrap: wrap;
   padding-bottom: 1rem;
   font-size: 0.9rem;
   a {
