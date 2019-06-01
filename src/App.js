@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import uuid from 'uuid';
 import TopCard from './components/TopCard';
 
+// 'http://localhost:9000/api/rating/weighted';
 const DOMAIN =
-  'https://survey-toolbar-ext-backend.herokuapp.com/api/rating/average';
+  'https://survey-toolbar-ext-backend.herokuapp.com/api/rating/weighted';
 
-function round(value, decimals) {
+function roundRating(value, decimals) {
   return parseFloat(Math.round(value * 100) / 100).toFixed(decimals);
 }
 
@@ -104,7 +105,7 @@ function App() {
                 <RankSpan>{ratings.indexOf(rating) + 1}.</RankSpan>
                 <UrlSpan>{url}</UrlSpan>
                 <RatingSpan>{rating.count}</RatingSpan>
-                <RatingSpan>{round(rating.avgRating, 2)}</RatingSpan>
+                <RatingSpan>{roundRating(rating.wtAvg, 2)}</RatingSpan>
               </StyledList>
             );
           })
