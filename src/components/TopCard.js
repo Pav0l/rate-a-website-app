@@ -69,6 +69,9 @@ const CardContainer = styled.div`
     color: #4a90e2;
     font-size: ${props => (props.rating === 1 ? '1.3rem' : '1rem')};
     margin: 0.5rem 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   p {
@@ -96,4 +99,7 @@ const Badge = styled.img`
 
 const LogoWrap = styled.div`
   min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
