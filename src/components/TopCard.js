@@ -16,8 +16,8 @@ function TopCard({ rating, site }) {
 
   return (
     <CardContainer rating={rating} onClick={() => window.open(site.url)}>
-      <BadgeWrap rating={rating}>
-        <Badge src={badge} alt="badge" />
+      <BadgeWrap>
+        <Badge src={badge} alt="badge" rating={rating} />
       </BadgeWrap>
 
       <LogoWrap>
