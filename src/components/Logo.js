@@ -37,8 +37,7 @@ Logo.propTypes = {
 const StyledLogo = styled.img`
   max-width: 100px;
   width: 50%;
-  border-radius: 50%;
-  border-color: white;
+  border-radius: 4px;
   margin: 1rem 0;
   padding: 2px;
 `;
