@@ -68,7 +68,7 @@ const CardContainer = styled.div`
     font-weight: 600;
     color: #4a90e2;
     font-size: ${props => (props.rating === 1 ? '1.3rem' : '1rem')};
-    margin: 0.5rem 0;
+    margin: 0.5rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
