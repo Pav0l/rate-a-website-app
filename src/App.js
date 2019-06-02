@@ -74,7 +74,7 @@ function App() {
         <a
           target="_blank"
           rel="noopener noreferrer"
-          href="https://addons.mozilla.org/en-US/firefox/addon/rate-a-website/"
+          href="https://addons.mozilla.org/firefox/downloads/file/2999853/rate_a_website-1.0-fx.xpi?src=dp-btn-primary"
         >
           Firefox
         </a>
