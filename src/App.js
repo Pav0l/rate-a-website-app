@@ -104,7 +104,7 @@ function App() {
               <StyledList key={uuid()} onClick={() => window.open(rating.url)}>
                 <RankSpan>{ratings.indexOf(rating) + 1}.</RankSpan>
                 <UrlSpan>{url}</UrlSpan>
-                <RatingSpan>{rating.count}</RatingSpan>
+                {/* <RatingSpan>{rating.count}</RatingSpan> */}
                 <RatingSpan>{roundRating(rating.wtAvg, 2)}</RatingSpan>
               </StyledList>
             );
